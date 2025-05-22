@@ -57,10 +57,10 @@ SampleCode/
 
 ## 샘플코드 실행방법 
 
-## 패키지 설치
+**패키지 설치** 
 pip install flask
 
-## 앱 실행
+**앱 실행**
 python app.py
 
 ---
