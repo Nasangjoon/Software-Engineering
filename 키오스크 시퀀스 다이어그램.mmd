@@ -1,0 +1,14 @@
+sequenceDiagram
+    participant User
+    participant WebClient as Browser
+    participant FlaskApp
+    participant OrderManager
+
+    User->>WebClient: 카페 키오스크 페이지 접속
+    WebClient->>FlaskApp: GET /
+    FlaskApp-->>WebClient: kiosk.html 렌더링 (메뉴 + 이미지 + 가격)
+    User->>WebClient: 메뉴 선택 및 주문
+    WebClient->>FlaskApp: POST /order (선택한 메뉴 전달)
+    FlaskApp->>OrderManager: 주문 처리 요청
+    OrderManager-->>FlaskApp: 주문 처리 로그 반환
+    FlaskApp-->>WebClient: JSON 응답 (주문 완료 로그)
