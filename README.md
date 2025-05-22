@@ -30,7 +30,7 @@ sequenceDiagram
     FlaskApp->>OrderManager: 주문 처리 요청
     OrderManager-->>FlaskApp: 주문 처리 로그 반환
     FlaskApp-->>WebClient: JSON 응답 (주문 완료 메시지)
-
+```
 ---
 
 ## 디렉토리 구조
