@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>카페 키오스크</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8dc;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 2rem;
+        }
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .menu-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+            text-align: center;
+        }
+        .menu-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+        button {
+            background: #f9a825;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #c17900;
+        }
+        #log {
+            width: 320px;
+            height: 200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+            padding: 1rem;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            line-height: 1.4rem;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <h1>☕ 카페 키오스크 시스템</h1>
+    <div class="menu">
+        {% for item in menu %}
+        <div class="menu-item">
+            <img src="{{ item.image }}" alt="{{ item.name }}" />
+            <div><strong>{{ item.name }}</strong></div>
+            <div>{{ item.price }}원</div>
+            <button onclick="orderItem('{{ item.name }}')">주문하기</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h3>주문 로그</h3>
+    <div id="log"></div>
+
+    <script>
+        async function orderItem(itemName) {
+            const res = await fetch('/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ item: itemName })
+            });
+            const data = await res.json();
+
+            const logEl = document.getElementById('log');
+            if (data.error) {
+                logEl.textContent = data.error;
+            } else {
+                logEl.textContent = data.log.join('\n');
+            }
+        }
+    </script>
+</body>
+</html>
