@@ -63,11 +63,12 @@ pip install flask
 **앱 실행**
 python app.py
 
-# 가상환경 생성 (필요한 경우)
+**가상환경 생성 (필요한 경우)**
 python3 -m venv venv
 
-# 가상환경 활성화 (Mac/Linux)
+**가상환경 활성화 (Mac/Linux)**
 source venv/bin/activate
+
 ---
 
 ## 파일 설명
